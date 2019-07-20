@@ -1,0 +1,75 @@
+<%
+function couleurTemp(temp) {
+   let color;
+   
+   if (temp < 10) {
+      color = " #2e86c1 "
+   } else if (temp < 20) {
+      color = "#7d6608"
+   } else if (temp < 30) {
+      color = " #0e6251 "
+   } else if (temp < 40) {
+      color = "#641e16"
+   } else {
+      color = "#17202a"
+   }
+   return "color: " + color;
+}
+%>
+
+<h2>Informations sur la ville :</h1>
+<p><strong>Nom</strong> : <%= data.city_info.name %> </p>
+<p><strong>Latitude</strong> : <%= data.city_info.latitude %> </p>
+<p><strong>Longitude</strong> : <%= data.city_info.longitude %> </p>
+<p><strong>Altitude</strong> : <%= data.city_info.elevation %> mètres</p>
+<p><strong>Heure du lever du soleil</strong> : <%= data.city_info.sunrise %> </p>
+<p><strong>Heure de coucher de soleil</strong> : <%= data.city_info.sunset %> </p>
+
+<h2>Temps actuel</h2>
+<p><strong>Température</strong> : <%= data.current_condition.tmp %>°C </p>
+<p><strong>Vitesse du vent</strong> : <%= data.current_condition.wnd_spd %> Km/h </p>
+<p><strong>Vitesse des rafales de vents</strong> : <%= data.current_condition.wnd_gust %> Km/h </p>
+<p><strong>Direction du vent</strong> : <%= data.current_condition.wnd_dir %> </p>
+<p><strong>Pression athmosphérique</strong> : <%= data.current_condition.pressure %> </p>
+<p><strong>Humidité</strong> : <%= data.current_condition.humidity %>%</p>
+<p><strong>Conditions</strong> : <%= data.current_condition.condition %> </p>
+
+<h2>Prévisions météo</h2>
+<% var i=0; %>
+<% for (i;i<=4;i++) { %>
+<h3><%= data["fcst_day_"+i]["day_long"] %></h3>
+<p><strong>Température minimum</strong> : <%= data["fcst_day_"+i]["tmin"] %> °C</p>
+<p><strong>Température maximum</strong> : <%= data["fcst_day_"+i]["tmax"] %> °C</p>
+<p><strong>Conditions</strong> : <%= data["fcst_day_"+i]["condition"] %> </p>
+
+<table>
+   <thead>
+   <thead>
+      <tr>
+         <td>Heure</td>
+         <td>Conditions</td>
+         <td>Température maximum</td>
+         <td>Température minimum</td>
+         <td>Vitesse du vent à 10m</td>
+         <td>Rafales à 10m</td>
+         <td>Direction du vent</td>
+      </tr>
+   </thead>
+   <tr>
+      <% for (loop=0;loop<=23;loop++) { %>
+      <% var hANDjInLoop = data["fcst_day_"+i]["hourly_data"][loop+"H00"]; %>
+      <td><%= loop + "H00" %></td>
+      <td><%= hANDjInLoop.CONDITION %></td>
+      <td style="<%= couleurTemp(hANDjInLoop.TMP2m) %>" ><%= hANDjInLoop.TMP2m %> °C</td>
+      <td style="<%= couleurTemp(hANDjInLoop.DPT2m) %>" ><%= hANDjInLoop.DPT2m %> °C</td>
+      <td><%= hANDjInLoop.WNDSPD10m %> km/h</td>
+      <td><%= hANDjInLoop.WNDGUST10m %> km/h</td>
+      <td><%= hANDjInLoop.WNDDIRCARD10 %> </td>
+   </tr>
+
+
+
+
+   <% } %>
+</table>
+<% } %>
