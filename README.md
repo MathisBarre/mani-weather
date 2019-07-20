@@ -1,14 +1,33 @@
 # Mani-weather
 
-A weather app to pratice API
+Un site de météo afin de jouer avec les API & Javascript
 
-Previsions and A.P.I by www.prevision-meteo.ch
+Previsions et API par www.prevision-meteo.ch
 
 ## Todo
 
-- [x] Rajouter un loader 
-- [ ] initialisation github
+### v0.1.0
+
+- [x] Rajouter un loader
+- [x] initialisation github
+
+### v0.2.0
+
 - [ ] Redesign bootsrap
 - [ ] Message à l'erreur (pas de réseau / pas de ville)
-
 - [ ] Autocomplétion
+
+### v1.0.0
+
+- [ ] Passage à node.js
+- [ ] Re-design "à la main"
+
+### v1.1.0
+
+- [ ] Refactoring / Réorganisation
+
+
+## Actuals technologies
+
+- Javascript ( ajax, templating and other)
+   - ejs (templating)
