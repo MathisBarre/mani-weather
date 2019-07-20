@@ -27,7 +27,13 @@ Previsions et API par www.prevision-meteo.ch
 - [ ] Refactoring / Réorganisation
 
 
-## Actuals technologies
+## Technologie utilisées
 
+- HTML / CSS
+  - Boostrap
 - Javascript ( ajax, templating and other)
-   - ejs (templating)
+  - ejs (templating)
+
+## Notes d'utilisation
+
+Si vous souhaitez installer la v0.1.1, il vous faudra installer ejs et le situer dans le dossier assets/js
