@@ -1,2 +1,3 @@
 # Mani-weather
-An app to pratice API
+A weather app to pratice API
+Previsions and A.P.I by www.prevision-meteo.ch
