@@ -1,4 +1,4 @@
-input[type=text] {
+/*input[type=text] {
    width: 250px;
    padding: 3px;
    border: 1px solid #ced4da;
@@ -54,7 +54,7 @@ h2,h3 {
 h3 {
    width: 25%;
    margin: 15px auto;
-}
+}*/
 
 
 /* Animation loader */
