@@ -1,11 +1,11 @@
 input[type=text] {
    width: 250px;
-   padding: 6px;
+   padding: 3px;
    border: 1px solid #ced4da;
    border-radius: 6px 0 0 6px;
 }
 input[type=submit] {
-   padding: 6px;
+   padding: 3px;
    border: solid 1px #ced4da;
    border-radius: 0 6px 6px 0;
    border-left: none;
@@ -40,6 +40,7 @@ form {
    display: flex;
    align-items: center;
    justify-content: center;
+   margin-bottom: 10px;
 }
 h1 {
    text-align: center;
