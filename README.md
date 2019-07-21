@@ -14,6 +14,7 @@ Previsions et API par www.prevision-meteo.ch
 ### v0.2.0
 
 - [ ] Redesign bootsrap
+- [ ] Rendre le site responsive
 - [ ] Message à l'erreur (pas de réseau / pas de ville)
 - [ ] Autocomplétion
 
