@@ -1,10 +1,9 @@
 /********************  Init  ***********************/
 
 var formElt = document.getElementById("form");
-var mainElt = document.getElementById("main");
-var inputElt = document.getElementById("searchBar");
-//var loaderElt = document.getElementsByClassName("lds-ring")[0];
-var data
+var searchBarElt = document.getElementById("searchBar");
+var loadingElt = document.getElementsByClassName("loading")[0];
+var APIdata
 
 async function ajaxGet(url, type, callback) {
    const req = new XMLHttpRequest();
@@ -28,15 +27,16 @@ async function ajaxGet(url, type, callback) {
 formElt.addEventListener("submit", onSubmit);
 
 function onSubmit(e = null) {
-   //loaderElt.style.display = "block";
+   loadingElt.style.display = "block";
    if (e !== null) { e.preventDefault() };
    ajaxGet("https://www.prevision-meteo.ch/services/json/" + inputElt.value, "application/json", onDataGet);
+   /*ajaxGet("index.html", "text/html", onDataGet);*/
 }
 
 function onDataGet(reponse) {
-   loaderElt.style.display = "none"
-   data = JSON.parse(reponse);
-   templateDocument = ajaxGet('/template.html', "text/html", onTemplateGet)
+   loadingElt.style.display = "none";
+   APIdata = JSON.parse(reponse);
+
 };
 
 /********************* chart *************************/
