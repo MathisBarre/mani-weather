@@ -16,7 +16,6 @@
 <body>
    <div class="mask"></div>
 
-
    <div class="searchBox">
       <form id="form">
          <label for="searchBar">Entrer le nom de la ville / du village</label><br>
@@ -27,63 +26,65 @@
       </form>
    </div>
 
-   <div class="row">
-      <div class="location">
-         <header class="headerLocation">
-            <img src="assets/img/home-address.svg" alt="Logo représentant une maison" id="locationImg">
-            <div>
-               <h2 id="locationH2">{{ data.city_info. }}</h2>
-               <p id="location_subH2">Altitude : {{ data.city_info.elevation }}m</p>
-            </div>
-         </header>
-
-         <iframe id="map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4006576538085938%2C47.29349337407018%2C-0.2873611450195313%2C47.34876782891704&amp;layer=mapnik&amp;marker=47.321137830234896%2C-0.3440093994140625"></iframe>
-         <p id="mapInfos">
-            <span class="location_lat">Latitude : {{ data.city_info.latitude }}</span>
-            <span class="location_lon">Longitude : {{ data.city_info.longitude }}</span>
-         </p>
-
-      </div>
-
-      <div class="actualWeatherWrapper">
-         <h2>Actuellement</h2>
-         <div class="actualWeather">
-
-
-            <div id="weatherAndTemperatureWrapper">
-               <div class="weather">
-                  <img src="assets/img/ensoleille-big.png" alt="Représentation imagée de la météo">
-                  <p class="temps_text">{{ data.forecast_info.condition }}</p>
+   <main style="display: none">
+      <div class="row">
+         <div class="location">
+            <header class="headerLocation">
+               <img src="assets/img/home-address.svg" alt="Logo représentant une maison" id="locationImg">
+               <div>
+                  <h2 id="locationH2">{{ data.city_info. }}</h2>
+                  <p id="location_subH2">Altitude : {{ data.city_info.elevation }}m</p>
                </div>
-               <div class="temperature">
-                  <img src="assets/img/hot.svg" alt="Représentation d'un thermomètre">
-                  <p class="temperature_text">{{ data.forecast_info.tmp }}°C</p>
-               </div>
-            </div>
+            </header>
 
-            <div class="wind_wrapper">
-               <img src="assets/img/wind.svg" alt="Image représentant le vent">
-               <div id="wind_infos">
-                  <p><strong>Direction : </strong>{{ data.forecast_info.wnd_dir }}</p>
-                  <p><strong>Vitesse : </strong>{{ data.forecast_info.wnd_speed }} km/h</p>
-                  <p><strong>Rafales : </strong>{{ data.forecast_info.wnd_gust }} km/h</p>
-               </div>
-            </div>
+            <iframe id="map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+               src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4006576538085938%2C47.29349337407018%2C-0.2873611450195313%2C47.34876782891704&amp;layer=mapnik&amp;marker=47.321137830234896%2C-0.3440093994140625"></iframe>
+            <p id="mapInfos">
+               <span class="location_lat">Latitude : {{ data.city_info.latitude }}</span>
+               <span class="location_lon">Longitude : {{ data.city_info.longitude }}</span>
+            </p>
 
          </div>
+
+         <div class="actualWeatherWrapper">
+            <h2>Actuellement</h2>
+            <div class="actualWeather">
+
+
+               <div id="weatherAndTemperatureWrapper">
+                  <div class="weather">
+                     <img src="assets/img/ensoleille-big.png" alt="Représentation imagée de la météo">
+                     <p class="temps_text">{{ data.forecast_info.condition }}</p>
+                  </div>
+                  <div class="temperature">
+                     <img src="assets/img/hot.svg" alt="Représentation d'un thermomètre">
+                     <p class="temperature_text">{{ data.forecast_info.tmp }}°C</p>
+                  </div>
+               </div>
+
+               <div class="wind_wrapper">
+                  <img src="assets/img/wind.svg" alt="Image représentant le vent">
+                  <div id="wind_infos">
+                     <p><strong>Direction : </strong>{{ data.forecast_info.wnd_dir }}</p>
+                     <p><strong>Vitesse : </strong>{{ data.forecast_info.wnd_speed }} km/h</p>
+                     <p><strong>Rafales : </strong>{{ data.forecast_info.wnd_gust }} km/h</p>
+                  </div>
+               </div>
+
+            </div>
+         </div>
       </div>
-   </div>
 
-   <div class="forecasts">
-      <h2>Prévisions</h2>
-      <h3>Aujourd'hui</h3>
-      <canvas id="myChart" width="400" height="200"></canvas>
-   </div>
+      <div class="forecasts">
+         <h2>Prévisions</h2>
+         <h3>Aujourd'hui</h3>
+         <canvas id="myChart" width="400" height="200"></canvas>
+      </div>
 
-   <footer>
-      <a href="https://www.prevision-meteo.ch">Prévisions par www.prevision-meteo.ch</a>
-   </footer>
+      <footer>
+         <a href="https://www.prevision-meteo.ch">Prévisions par www.prevision-meteo.ch</a>
+      </footer>
+   </main>
 
 
    <div class="loading" style="display: none">
@@ -95,6 +96,21 @@
          <div></div>
       </div>
    </div>
+
+
+   <div class="error" style="display: none" data-error="Erreur">
+      <p>Erreur : veuillez recharger la page et réessayer</p>
+   </div>
+
+   <div class="nofetch" style="display: none">
+      <p>Navigateur inadapté : l'application de fonctionnera pas correctement</p>
+   </div>
+
+   <noscript>
+      <div class="noscript">
+         <p>Javascript désactivé : l'application de fonctionnera pas correctement</p>
+      </div>
+   </noscript>
 
 
    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
