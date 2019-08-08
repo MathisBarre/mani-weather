@@ -3,43 +3,47 @@
 var formElt = document.getElementById("form");
 var searchBarElt = document.getElementById("searchBar");
 var loadingElt = document.getElementsByClassName("loading")[0];
+var template = document.getElementsByTagName("template")[0];
 var APIdata
-
-async function ajaxGet(url, type, callback) {
-   const req = new XMLHttpRequest();
-   req.open("GET", url);
-   req.responseType = type;
-   req.onload = function (e) {
-      if (req.status >= 200 && req.status < 400) {
-         callback(req.response);
-      } else {
-         console.error(req.status + " " + req.statusText + " on " + req.responseURL);
-      }
-   }
-   req.onerror = function (e) {
-      console.error("Erreur réseau");
-   }
-   req.send();
-};
 
 /********************* app *************************/
 
-formElt.addEventListener("submit", onSubmit);
-
 function onSubmit(e = null) {
-   loadingElt.style.display = "block";
    if (e !== null) { e.preventDefault() };
-   ajaxGet("https://www.prevision-meteo.ch/services/json/" + inputElt.value, "application/json", onDataGet);
-   /*ajaxGet("index.html", "text/html", onDataGet);*/
+   loadingElt.style.display = "block";
+   // "https://jsonplaceholder.typicode.com/users"
+   // Ajax weather API
+   fetch("https://www.prevision-meteo.ch/services/json/" + searchBarElt.value)
+      .then(response => {
+         console.log("then 1")
+         if (response.ok) {
+            return response.json();
+         } else {
+            console.error("error");
+         }
+      })
+      .then(apiJson => {
+         console.log("then 2")
+         loadingElt.style.display = "none";
+         console.info("Weather data acquired");
+         
+         renderTemplate(apiJson);
+      })
+      .catch(function() { console.error("error to acquired data") })
 }
 
-function onDataGet(reponse) {
-   loadingElt.style.display = "none";
-   APIdata = JSON.parse(reponse);
+function renderTemplate(data) {
+   console.log("rendering...")
+   let render = ejs.render(template.innerHTML, {data: data});
+   console.log(render);
+   console.log(data);
+   
+   
+}
 
-};
+formElt.addEventListener("submit", onSubmit);
 
-/********************* chart *************************/
+/********************* chart ************************
 var dataTodayTemp = [12, 19, 3, 5, 2, 3]
 
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -73,4 +77,4 @@ var myChart = new Chart(ctx, {
          }]
       }
    }
-});
+});*/
