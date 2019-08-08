@@ -18,6 +18,7 @@ h2 {
 
 img {
   max-height: 100px;
+  height: 100px;
 }
 
 .row {
@@ -93,6 +94,7 @@ img {
 
 #locationH2 {
   margin-bottom: -3px;
+  text-align: start!important;
 }
 
 #location_subH2 {

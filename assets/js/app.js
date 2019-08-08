@@ -1,80 +1,97 @@
 /********************  Init  ***********************/
 
-var formElt = document.getElementById("form");
+var formElt =      document.getElementById("form");
 var searchBarElt = document.getElementById("searchBar");
-var loadingElt = document.getElementsByClassName("loading")[0];
-var template = document.getElementsByTagName("template")[0];
-var APIdata
+var loadingElt =   document.getElementsByClassName("loading")[0];
+var mainElt =      document.querySelector("main");
+
+async function ajaxGet(url, type, callback) {
+   const req = new XMLHttpRequest();
+   req.open("GET", url);
+   req.responseType = type;
+   req.onload = function (e) {
+      if (req.status >= 200 && req.status < 400) {
+         callback(req.response);
+      } else {
+         console.error(req.status + " " + req.statusText + " on " + req.responseURL);
+      }
+   }
+   req.onerror = function (e) {
+      console.error("Erreur réseau");
+   }
+   req.send();
+};
 
 /********************* app *************************/
 
-function onSubmit(e = null) {
-   if (e !== null) { e.preventDefault() };
-   loadingElt.style.display = "block";
-   // "https://jsonplaceholder.typicode.com/users"
-   // Ajax weather API
-   fetch("https://www.prevision-meteo.ch/services/json/" + searchBarElt.value)
-      .then(response => {
-         console.log("then 1")
-         if (response.ok) {
-            return response.json();
-         } else {
-            console.error("error");
-         }
-      })
-      .then(apiJson => {
-         console.log("then 2")
-         loadingElt.style.display = "none";
-         console.info("Weather data acquired");
-         
-         renderTemplate(apiJson);
-      })
-      .catch(function() { console.error("error to acquired data") })
-}
-
-function renderTemplate(data) {
-   console.log("rendering...")
-   let render = ejs.render(template.innerHTML, {data: data});
-   console.log(render);
-   console.log(data);
-   
-   
-}
-
 formElt.addEventListener("submit", onSubmit);
 
-/********************* chart ************************
-var dataTodayTemp = [12, 19, 3, 5, 2, 3]
+function onSubmit (e = null) {
+   loadingElt.style.display = "block";
+   if (e !== null) { e.preventDefault() };
+   ajaxGet("https://www.prevision-meteo.ch/services/json/" + searchBarElt.value , "application/json", onDataGet );
+}
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-   type: 'line',
-   data: {
-      labels: ['1h00', '2h00', '3h00', '4h00', '5h00', '6h00', '7h00', '8h00', '9h00', '10h00', '11h00', '12h00'],
-      datasets: [{
-         label: 'Vitesse du vent',
-         data: dataTodayTemp,
-         borderColor: [
-            'rgba(255, 99, 132, 1)'
-         ],
-         borderWidth: 1
-      },
-      {
-         label: 'Température',
-         data: [25, 19, 56, 52, 90, 3, 25, 19, 56, 52, 90, 3, 25, 19, 56, 52, 90, 3],
-         borderColor: [
-            'rgba(54, 162, 235, 1)'
-         ],
-         borderWidth: 1
-      }]
-   },
-   options: {
-      scales: {
-         yAxes: [{
-            ticks: {
-               beginAtZero: true
-            }
-         }]
-      }
+function onDataGet (reponse) {
+   APIdata = JSON.parse(reponse);
+   templateDocument = ajaxGet('/template.html', "text/html", onTemplateGet);
+};
+
+function onTemplateGet(reponse) {
+   loadingElt.style.display = "none";
+   var output = ejs.render(reponse, APIdata);
+   console.info("Template has been successfully rendered")
+   mainElt.innerHTML = output;
+
+   chartInit(APIdata);
+};
+
+/********************* chart *************************/
+
+function createTableOfDataUsableInChart(APIdata) {
+   var APIdataArray = []
+   for (let y = 0; y < 5 ; y++) {
+      var currentDay = "fcst_day_" + y;
+      APIdataArray.push([]);
+      for (i = 0 ; i < 24 ; i++ ) {
+         let hours = i + "H00";
+         
+         APIdataArray[y].push(APIdata[currentDay].hourly_data[hours].TMP2m)
+      }      
    }
-});*/
+   return APIdataArray;
+}
+
+function chartInit(APIdata) {
+
+   let APIdataArray = createTableOfDataUsableInChart(APIdata);
+   
+
+   var ctx = document.getElementById('myChart').getContext('2d');
+   var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+         labels: ['0H00', '1h00', '2h00', '3h00', '4h00', '5h00', '6h00', '7h00', '8h00', '9h00', '10h00', '11h00', '13h00', '14h00', '15h00', '16h00', '17h00', '18h00', '19h00', '20h00', '21h00', '22h00', '23h00'],
+         datasets: [
+         {
+            label: 'Température',
+            data: APIdataArray[0],
+            borderColor: [
+               'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+         }]
+      },
+      options: {
+         scales: {
+            yAxes: [{
+               ticks: {
+                  beginAtZero: true
+               }
+            }]
+         }
+      }
+   });
+
+
+}

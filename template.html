@@ -3,7 +3,7 @@
       <header class="headerLocation">
          <img src="assets/img/home-address.svg" alt="Logo représentant une maison" id="locationImg">
          <div>
-            <h2 id="locationH2"><%= data.city_info.name %></h2>
+            <h2 id="locationH2"><%= city_info.name %></h2>
             <p id="location_subH2">Altitude : <%= city_info.elevation %>m</p>
          </div>
       </header>
@@ -24,21 +24,21 @@
 
          <div id="weatherAndTemperatureWrapper">
             <div class="weather">
-               <img src="assets/img/ensoleille-big.png" alt="Représentation imagée de la météo">
-               <p class="temps_text"><%= forecast_info.condition %></p>
+               <img src="<%= current_condition.icon %>" alt="Représentation imagée de la météo">
+               <p class="temps_text"><%= current_condition.condition %></p>
             </div>
             <div class="temperature">
                <img src="assets/img/hot.svg" alt="Représentation d'un thermomètre">
-               <p class="temperature_text"><%= forecast_info.tmp %>°C</p>
+               <p class="temperature_text"><%= current_condition.tmp %>°C</p>
             </div>
          </div>
 
          <div class="wind_wrapper">
             <img src="assets/img/wind.svg" alt="Image représentant le vent">
             <div id="wind_infos">
-               <p><strong>Direction : </strong><%= forecast_info.wnd_dir %></p>
-               <p><strong>Vitesse : </strong><%= forecast_info.wnd_speed %> km/h</p>
-               <p><strong>Rafales : </strong><%= forecast_info.wnd_gust %> km/h</p>
+               <p><strong>Direction : </strong><%= current_condition.wnd_dir %></p>
+               <p><strong>Vitesse : </strong><%= current_condition.wnd_speed %> km/h</p>
+               <p><strong>Rafales : </strong><%= current_condition.wnd_gust %> km/h</p>
             </div>
          </div>
 
