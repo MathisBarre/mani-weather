@@ -1,0 +1,53 @@
+<div class="row">
+   <div class="location">
+      <header class="headerLocation">
+         <img src="assets/img/home-address.svg" alt="Logo représentant une maison" id="locationImg">
+         <div>
+            <h2 id="locationH2"><%= data.city_info.name %></h2>
+            <p id="location_subH2">Altitude : <%= city_info.elevation %>m</p>
+         </div>
+      </header>
+
+      <iframe id="map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+         src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4006576538085938%2C47.29349337407018%2C-0.2873611450195313%2C47.34876782891704&amp;layer=mapnik&amp;marker=47.321137830234896%2C-0.3440093994140625"></iframe>
+      <p id="mapInfos">
+         <span class="location_lat">Latitude : <%= city_info.latitude %></span>
+         <span class="location_lon">Longitude : <%= city_info.longitude %></span>
+      </p>
+
+   </div>
+
+   <div class="actualWeatherWrapper">
+      <h2>Actuellement</h2>
+      <div class="actualWeather">
+
+
+         <div id="weatherAndTemperatureWrapper">
+            <div class="weather">
+               <img src="assets/img/ensoleille-big.png" alt="Représentation imagée de la météo">
+               <p class="temps_text"><%= forecast_info.condition %></p>
+            </div>
+            <div class="temperature">
+               <img src="assets/img/hot.svg" alt="Représentation d'un thermomètre">
+               <p class="temperature_text"><%= forecast_info.tmp %>°C</p>
+            </div>
+         </div>
+
+         <div class="wind_wrapper">
+            <img src="assets/img/wind.svg" alt="Image représentant le vent">
+            <div id="wind_infos">
+               <p><strong>Direction : </strong><%= forecast_info.wnd_dir %></p>
+               <p><strong>Vitesse : </strong><%= forecast_info.wnd_speed %> km/h</p>
+               <p><strong>Rafales : </strong><%= forecast_info.wnd_gust %> km/h</p>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>
+
+<div class="forecasts">
+   <h2>Prévisions</h2>
+   <h3>Aujourd'hui</h3>
+   <canvas id="myChart" width="400" height="200"></canvas>
+</div>
