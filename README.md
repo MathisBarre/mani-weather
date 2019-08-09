@@ -15,7 +15,7 @@ Previsions et API par www.prevision-meteo.ch |
 
 ### v0.2.0
 
-- [ ] Redesign
+- [x] Redesign
 - [ ] Rendre le site responsive
 - [ ] Message à l'erreur (pas de réseau / pas de ville)
 - [ ] Réorganisation class / id / nom de class & id
@@ -29,7 +29,6 @@ Previsions et API par www.prevision-meteo.ch |
 - [ ] Systeme de cache
 - [ ] Integration localisation
 - [ ] Integration openstreetmap
-- [ ] (Re-design "à la main")
 
 ### v1.1.0
 
