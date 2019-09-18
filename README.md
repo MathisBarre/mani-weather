@@ -30,7 +30,7 @@ Previsions et API par www.prevision-meteo.ch |
 - [ ] Integration localisation
 - [ ] Integration openstreetmap
 
-### v1.1.0
+### v1.0.1
 
 - [ ] Refactoring / Réorganisation
 
